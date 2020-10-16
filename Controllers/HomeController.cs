@@ -25,75 +25,49 @@ namespace Task5.Controllers
 
             return View(chats);
         }
+        [Route("666")]
+        public IActionResult IndexRouted()
+        {
+            var chats = _ctx.Chats
+                .Include(x => x.Users)
+                .Where(x => !x.Users
+                    .Any(y => y.UserId == User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                    .ToList();
+
+            return RedirectToAction("Index");
+        }
 
         [HttpGet("{id}")]
         public IActionResult Chat(int id)
         {
             var chat = _ctx.Chats
                 .Include(x => x.Messages)
+                .Include(x => x.Users)
                 .FirstOrDefault(x => x.Id == id);
             return View(chat);
-        }
-
-        public IActionResult Find()
-        {
-            var users = _ctx.Users
-                .Where(x => x.Id != User.FindFirst(ClaimTypes.NameIdentifier).Value)
-                .ToList();
-
-            return View(users);
-        }
-        
-        public IActionResult Private()
-        {
-            var chats = _ctx.Chats
-                .Include(c => c.Users)
-                    .ThenInclude(x => x.User)
-                .Where(x => x.Type == ChatType.Private &&
-                    x.Users
-                    .Any(y => y.UserId == User.FindFirst(ClaimTypes.NameIdentifier).Value))
-                    .ToList();
-
-            return View(chats);
-        }
-        public async Task<IActionResult> CreatePrivateRoom(string userId)
-        {
-            var chat = new Chat
-            {
-                Type = ChatType.Private
-            };
-
-            chat.Users.Add( new ChatUser
-            {
-                UserId = userId
-            });
-
-            chat.Users.Add( new ChatUser
-            {
-                UserId = User.FindFirst(ClaimTypes.NameIdentifier).Value
-            });
-
-            _ctx.Chats.Add(chat);
-
-            await _ctx.SaveChangesAsync();
-
-            return RedirectToAction("Chat", new { id = chat.Id });
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateMessage(
             int chatId,
-            string message)
+            string message,
+            string result,
+            string turnMark)
         {
             var Message = new Message
             {
                 ChatId = chatId,
                 Text = message,
                 Name = User.Identity.Name,
+                Result = result,
+                turnMark = turnMark,
                 Timestamp = DateTime.Now
             };
 
             _ctx.Messages.Add(Message);
+
+ //           _ctx.Chats.FirstOrDefault(c => c.Id == chatId).Type = ChatType.Private;
+
             await _ctx.SaveChangesAsync();
 
             return RedirectToAction("Chat", new { id = chatId });
@@ -110,7 +84,7 @@ namespace Task5.Controllers
 
             chat.Users.Add(new ChatUser{
                 UserId = User.FindFirst(ClaimTypes.NameIdentifier).Value,
-                Role = UserRole.Admin
+                Role = UserRole.Creater
             });
 
             _ctx.Chats.Add(chat);
@@ -126,7 +100,7 @@ namespace Task5.Controllers
             {
                 ChatId = id,
                 UserId = User.FindFirst(ClaimTypes.NameIdentifier).Value,
-                Role = UserRole.Member
+                Role = UserRole.Joiner
             };
 
             _ctx.ChatUsers.Add(chatUser);

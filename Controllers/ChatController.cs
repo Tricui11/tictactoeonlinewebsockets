@@ -37,12 +37,16 @@ namespace Task5.Controllers
         [HttpPost("[action]")]
         public async Task<IActionResult> SendMessage(
             string message,
+            string turnMark,
+            string result,
             int roomId,
             [FromServices] AppDbContext ctx)
         {
             var Message = new Task5.Models.Message {
                 ChatId = roomId,
                 Text = message,
+                turnMark = turnMark,
+                Result = result,
                 Name = User.Identity.Name,
                 Timestamp = DateTime.Now                
             };       
@@ -54,10 +58,12 @@ namespace Task5.Controllers
                 .SendAsync("RecieveMessage", new {
                     Text = Message.Text,
                     Name = Message.Name,
+                    result = Message.Result,
+                    turnMark = Message.turnMark,
                     Timestamp = Message.Timestamp.ToString("dd/MM/yyyy hh:mm:ss")                    
                 });
-
+                
             return Ok();
-        }
+        }            
     }
 }

@@ -15,7 +15,7 @@ namespace Task5.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.8")
+                .HasAnnotation("ProductVersion", "3.1.9")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -193,7 +193,13 @@ namespace Task5.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("ChatId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Result")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Text")
@@ -202,12 +208,12 @@ namespace Task5.Migrations
                     b.Property<DateTime>("Timestamp")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("chatId")
-                        .HasColumnType("int");
+                    b.Property<string>("turnMark")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("chatId");
+                    b.HasIndex("ChatId");
 
                     b.ToTable("Messages");
                 });
@@ -218,9 +224,6 @@ namespace Task5.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ChatId")
                         .HasColumnType("int");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -268,8 +271,6 @@ namespace Task5.Migrations
                         .HasMaxLength(256);
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ChatId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasName("EmailIndex");
@@ -336,7 +337,7 @@ namespace Task5.Migrations
             modelBuilder.Entity("Task5.Models.ChatUser", b =>
                 {
                     b.HasOne("Task5.Models.Chat", "Chat")
-                        .WithMany()
+                        .WithMany("Users")
                         .HasForeignKey("ChatId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -352,16 +353,9 @@ namespace Task5.Migrations
                 {
                     b.HasOne("Task5.Models.Chat", "Chat")
                         .WithMany("Messages")
-                        .HasForeignKey("chatId")
+                        .HasForeignKey("ChatId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Task5.Models.User", b =>
-                {
-                    b.HasOne("Task5.Models.Chat", null)
-                        .WithMany("Users")
-                        .HasForeignKey("ChatId");
                 });
 #pragma warning restore 612, 618
         }

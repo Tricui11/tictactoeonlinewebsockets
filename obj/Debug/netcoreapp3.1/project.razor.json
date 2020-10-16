@@ -14454,6 +14454,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\furer\\Desktop\\Itransition\\Task5\\Views\\Shared\\Index.cshtml",
+      "TargetPath": "Views\\Shared\\Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\furer\\Desktop\\Itransition\\Task5\\Views\\Account\\Register.cshtml",
       "TargetPath": "Views\\Account\\Register.cshtml",
       "FileKind": "mvc"
