@@ -85,8 +85,7 @@ C:\Users\furer\Desktop\Itransition\Task5\obj\Debug\netcoreapp3.1\Razor\Views\Hom
 C:\Users\furer\Desktop\Itransition\Task5\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.JsonPatch.dll
 C:\Users\furer\Desktop\Itransition\Task5\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 C:\Users\furer\Desktop\Itransition\Task5\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
-C:\Users\furer\Desktop\Itransition\Task5\obj\Debug\netcoreapp3.1\Task5.csproj.CoreCompileInputs.cache
-C:\Users\furer\Desktop\Itransition\Task5\obj\Debug\netcoreapp3.1\Task5.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\furer\Desktop\Itransition\Task5\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Index.cshtml.g.cs
 C:\Users\furer\Desktop\Itransition\Task5\bin\Debug\netcoreapp3.1\libman.json
 C:\Users\furer\Desktop\Itransition\Task5\bin\Debug\netcoreapp3.1\package-lock.json
+C:\Users\furer\Desktop\Itransition\Task5\bin\Debug\netcoreapp3.1\Properties\ServiceDependencies\Task520201018064940 - Web Deploy\profile.arm.json

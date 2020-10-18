@@ -218,6 +218,26 @@ namespace Task5.Migrations
                     b.ToTable("Messages");
                 });
 
+            modelBuilder.Entity("Task5.Models.Tag", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("ChatId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ChatId");
+
+                    b.ToTable("Tags");
+                });
+
             modelBuilder.Entity("Task5.Models.User", b =>
                 {
                     b.Property<string>("Id")
@@ -356,6 +376,13 @@ namespace Task5.Migrations
                         .HasForeignKey("ChatId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Task5.Models.Tag", b =>
+                {
+                    b.HasOne("Task5.Models.Chat", null)
+                        .WithMany("Tags")
+                        .HasForeignKey("ChatId");
                 });
 #pragma warning restore 612, 618
         }
