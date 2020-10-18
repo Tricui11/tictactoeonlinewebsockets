@@ -21,6 +21,7 @@ namespace Task5.Controllers
                 .Include(x => x.Users)
                 .Where(x => !x.Users
                     .Any(y => y.UserId == User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                .Where(x => x.isFull == false)
                     .ToList();
 
             return View(chats);
@@ -32,6 +33,7 @@ namespace Task5.Controllers
                 .Include(x => x.Users)
                 .Where(x => !x.Users
                     .Any(y => y.UserId == User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                .Where(x => x.isFull == false)
                     .ToList();
 
             return RedirectToAction("Index");
@@ -51,7 +53,6 @@ namespace Task5.Controllers
         public async Task<IActionResult> CreateMessage(
             int chatId,
             string message,
-            string result,
             string turnMark)
         {
             var Message = new Message
@@ -59,7 +60,6 @@ namespace Task5.Controllers
                 ChatId = chatId,
                 Text = message,
                 Name = User.Identity.Name,
-                Result = result,
                 turnMark = turnMark,
                 Timestamp = DateTime.Now
             };
@@ -79,7 +79,8 @@ namespace Task5.Controllers
             var chat = new Chat
             {
                 Name = name,
-                Type = ChatType.Room
+                Type = ChatType.Room,
+                isFull = false                
             };
 
             chat.Users.Add(new ChatUser{
@@ -88,6 +89,7 @@ namespace Task5.Controllers
             });
 
             _ctx.Chats.Add(chat);
+
 
             await _ctx.SaveChangesAsync();
             return RedirectToAction("Index");
@@ -104,6 +106,7 @@ namespace Task5.Controllers
             };
 
             _ctx.ChatUsers.Add(chatUser);
+            _ctx.Chats.FirstOrDefault(c => c.Id == id).isFull = true;
 
             await _ctx.SaveChangesAsync();
             

@@ -88,3 +88,5 @@ C:\Users\furer\Desktop\Itransition\Task5\bin\Debug\netcoreapp3.1\Newtonsoft.Json
 C:\Users\furer\Desktop\Itransition\Task5\obj\Debug\netcoreapp3.1\Task5.csproj.CoreCompileInputs.cache
 C:\Users\furer\Desktop\Itransition\Task5\obj\Debug\netcoreapp3.1\Task5.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\furer\Desktop\Itransition\Task5\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Index.cshtml.g.cs
+C:\Users\furer\Desktop\Itransition\Task5\bin\Debug\netcoreapp3.1\libman.json
+C:\Users\furer\Desktop\Itransition\Task5\bin\Debug\netcoreapp3.1\package-lock.json

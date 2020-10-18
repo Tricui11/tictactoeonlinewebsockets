@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -28,9 +29,14 @@ namespace Task5.Controllers
         }
 
         [HttpPost("[action]/{connectionId}/{roomId}")]
-        public async Task<IActionResult> LeaveRoom(string connectionId, string roomId)
+        public async Task<IActionResult> LeaveRoom(string connectionId, string roomId,
+            [FromServices] AppDbContext ctx)
         {
             await _chat.Groups.RemoveFromGroupAsync(connectionId, roomId);
+
+            ctx.Chats.Remove(ctx.Chats.FirstOrDefault(c => c.Id.ToString() == roomId));
+            await ctx.SaveChangesAsync();
+            
             return Ok();
         }
 
@@ -38,7 +44,6 @@ namespace Task5.Controllers
         public async Task<IActionResult> SendMessage(
             string message,
             string turnMark,
-            string result,
             int roomId,
             [FromServices] AppDbContext ctx)
         {
@@ -46,7 +51,6 @@ namespace Task5.Controllers
                 ChatId = roomId,
                 Text = message,
                 turnMark = turnMark,
-                Result = result,
                 Name = User.Identity.Name,
                 Timestamp = DateTime.Now                
             };       
@@ -58,7 +62,6 @@ namespace Task5.Controllers
                 .SendAsync("RecieveMessage", new {
                     Text = Message.Text,
                     Name = Message.Name,
-                    result = Message.Result,
                     turnMark = Message.turnMark,
                     Timestamp = Message.Timestamp.ToString("dd/MM/yyyy hh:mm:ss")                    
                 });

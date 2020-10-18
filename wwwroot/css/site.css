@@ -36,12 +36,22 @@ body {
 
 .side-menu {
     background-color: #443554;
-    min-width: 100px;
-    max-width: 100px;
+    min-width: 160px;
+    max-width: 160px;
     z-index: 50;
     box-shadow: 1px 0 2px 0 #333;
     display: flex;
     flex-direction: column;
+}
+@media all and (max-width: 420px) {
+    .side-menu  {
+        background-color: #443554;
+        min-width: 90px;
+        max-width: 90px;
+        z-index: 50;
+        box-shadow: 1px 0 2px 0 #333;
+        display: flex;
+        flex-direction: column;    }
 }
 .room-button{
     color: white;
@@ -56,9 +66,19 @@ body {
     background-color: #57446b;
     text-align: center;
 }
+@media all and (max-width: 420px) {
+    .room-button {
+        height: 20px;
+    }
+}
 
 .room-button > strong {
     font-size: 36px;
+}
+@media all and (max-width: 420px) {
+    .room-button > strong {
+        font-size: 20px;
+    }
 }
 
 .room-button:hover {
@@ -124,6 +144,12 @@ body {
     padding: 1rem;
 }
 
+@media all and (max-width: 420px) {
+    .room-button {
+    min-height: 30px;
+    max-height: 30px;    }
+}
+
 .chat-input > input {
     flex-grow: 2;
 }
@@ -158,7 +184,7 @@ body {
 
 .modal-body {
     position: relative;
-    min-width: 300px;
+    max-width: 300px;
     display: flex;
     flex-direction: column;
     background-color: #5c4773;

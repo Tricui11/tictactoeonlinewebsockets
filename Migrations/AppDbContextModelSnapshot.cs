@@ -163,6 +163,9 @@ namespace Task5.Migrations
                     b.Property<int>("Type")
                         .HasColumnType("int");
 
+                    b.Property<bool>("isFull")
+                        .HasColumnType("bit");
+
                     b.HasKey("Id");
 
                     b.ToTable("Chats");
@@ -197,9 +200,6 @@ namespace Task5.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Result")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Text")
